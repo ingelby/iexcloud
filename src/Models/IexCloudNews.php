@@ -3,18 +3,19 @@
 
 namespace Ingelby\Iexcloud\Models;
 
-
+use Carbon\Carbon;
 use yii\base\Model;
 
-class News extends Model
+class IexCloudNews extends Model
 {
 
 	/**
 	 * @var string
 	 */
 	public $symbol;
+
 	/**
-	 * @var number
+	 * @var integer
 	 * Millisecond epoch of time of article
 	 */
 	public $datetime;
@@ -89,5 +90,13 @@ class News extends Model
 			],
 		];
 	}
+
+    /**
+     * @return string
+     */
+	public function getFormatDateSincePublication()
+    {
+        return Carbon::createFromTimestampMs($this->datetime)->diffForHumans();
+    }
 
 }
