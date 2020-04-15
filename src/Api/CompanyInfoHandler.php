@@ -24,7 +24,7 @@ class CompanyInfoHandler extends AbstractHandler
 			$symbol
         );
 
-        return json_decode($response);
+        return $response;
     }
 }
 
