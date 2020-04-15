@@ -68,7 +68,7 @@ class AbstractHandler extends InguzzleHandler
         ];
         $finalHeaders = array_merge($standardHeaders, $headers);
 
-        $cacheKey = static::CACHE_KEY . $call . md5(Json::encode($finalHeaders));
+        $cacheKey = static::CACHE_KEY . $call . $symbol . md5(Json::encode($finalHeaders));
 
         return \Yii::$app->cache->getOrSet(
             $cacheKey,
