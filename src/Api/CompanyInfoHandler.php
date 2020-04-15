@@ -17,7 +17,7 @@ class CompanyInfoHandler extends AbstractHandler
      * @throws IexcloudResponseException
      * @throws IexcloudRateLimitException
      */
-    public function getLogo(string $symbol)
+    public function getInfo(string $symbol)
     {
         $response = $this->fetch(
             'company',
