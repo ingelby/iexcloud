@@ -29,7 +29,7 @@ class NewsHandler extends AbstractHandler
 
 		foreach ($response as $article) :
 			$date = new \DateTime();
-			$date->setTimestamp($article["datetime"/ 1000]);
+			$date->setTimestamp($article["datetime"] / 1000);
 			$formattedTime = Carbon::parse($date)->diffForHumans();
 			$article['formattedTime'] = $formattedTime;
 			array_push($allNews, $article);
