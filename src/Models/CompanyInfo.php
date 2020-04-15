@@ -14,40 +14,111 @@ class CompanyInfo extends Model
     public $symbol;
     /**
      * @var string
+	 * Name of the company
      */
-    public $open;
-    /**
-     * @var string
-     */
-    public $high;
-    /**
-     * @var string
-     */
-    public $low;
-    /**
-     * @var string
-     */
-    public $price;
-    /**
-     * @var string
-     */
-    public $volume;
-    /**
-     * @var string
-     */
-    public $latestTradingDay;
-    /**
-     * @var string
-     */
-    public $previousClose;
-    /**
-     * @var string
-     */
-    public $change;
-    /**
-     * @var string
-     */
-    public $changePercent;
+    public $companyName;
+
+	/**
+	 * @var number
+	 * Number of employees
+	 */
+	public $employees;
+
+	/**
+	 * @var string
+	 */
+	public $exchange;
+
+	/**
+	 * @var string
+	 */
+	public $industry;
+
+	/**
+	 * @var string
+	 */
+	public $website;
+
+	/**
+	 * @var string
+	 */
+	public $description;
+
+	/**
+	 * @var string
+	 */
+	public $CEO;
+
+	/**
+	 * @var string
+	 * Name of the security
+	 */
+	public $securityName;
+
+	/**
+	 * @var string
+	 * refers to the common issue type of the stock.
+	 */
+	public $issueType;
+
+	/**
+	 * @var string
+	 */
+	public $sector;
+
+	/**
+	 * @var string
+	 * Primary SIC Code for the symbol (if available)
+	 */
+	public $primarySicCode;
+
+	/**
+	 * @var array
+	 * an array of strings used to classify the company.
+	 */
+	public $tags;
+
+	/**
+	 * @var array
+	 * street address of the company if available
+	 */
+	public $address;
+
+	/**
+	 * @var array
+	 * street address of the company if available
+	 */
+	public $address2;
+
+	/**
+	 * @var array
+	 * state of the company if available
+	 */
+	public $state;
+
+	/**
+	 * @var array
+	 * city of the company if available
+	 */
+	public $city;
+
+	/**
+	 * @var array
+	 * zip of the company if available
+	 */
+	public $zip;
+
+	/**
+	 * @var array
+	 * country of the company if available
+	 */
+	public $country;
+
+	/**
+	 * @var array
+	 * phone number of the company if available
+	 */
+	public $phone;
 
 
     /**
@@ -60,45 +131,10 @@ class CompanyInfo extends Model
                 [
                     'symbol',
                     'open',
-                    'high',
-                    'low',
-                    'price',
-                    'volume',
-                    'latestTradingDay',
-                    'previousClose',
-                    'change',
-                    'changePercent',
                 ],
                 'safe',
             ],
         ];
     }
 
-    /**
-     * @return bool
-     */
-    public function isNoChange(): bool
-    {
-        return 0 === (int) $this->change;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPositive(): bool
-    {
-        if (strpos($this->change, '-') === false) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNegative(): bool
-    {
-        return !$this->isPositive();
-    }
 }
