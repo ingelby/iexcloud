@@ -7,6 +7,7 @@ use Ingelby\Iexcloud\Exceptions\IexcloudResponseException;
 use Ingelby\Iexcloud\Models\News;
 use ingelby\toolbox\constants\HttpStatus;
 use ingelby\toolbox\services\InguzzleHandler;
+use Carbon\Carbon;
 
 class NewsHandler extends AbstractHandler
 {
