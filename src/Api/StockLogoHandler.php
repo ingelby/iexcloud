@@ -19,8 +19,9 @@ class StockLogoHandler extends AbstractHandler
      */
     public function getLogo(string $symbol)
     {
-        $response = $this->request(
-            'logo'
+        $response = $this->fetch(
+            'logo',
+			$symbol
         );
 
 
