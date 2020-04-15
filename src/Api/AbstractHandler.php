@@ -15,7 +15,7 @@ use yii\helpers\Json;
 
 class AbstractHandler extends InguzzleHandler
 {
-    protected const DEFAULT_URL = 'https://cloud.iexapis.com/';
+    protected const DEFAULT_URL = 'https://cloud.iexapis.com/stable/';
     protected const DEFAULT_ERROR_MESSAGE = 'Error Message';
     protected const DEFAULT_NOTE_MESSAGE = 'Note';
     protected const CACHE_KEY = 'IEXCLOUD_';
