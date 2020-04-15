@@ -14,7 +14,7 @@ class NewsHandler extends AbstractHandler
 
     /**
      * @param string $symbol
-     * @return Url
+     * @return IexCloudNews[]
      * @throws IexcloudResponseException
      * @throws IexcloudRateLimitException
      */
