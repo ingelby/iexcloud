@@ -60,7 +60,7 @@ class AbstractHandler extends InguzzleHandler
      * @throws IexcloudResponseException
      * @throws IexcloudRateLimitException
      */
-    public function request(string $call, string $symbol, array $headers)
+    public function fetch(string $call, string $symbol, array $headers)
     {
         $standardHeaders = [
             'token'   => $this->token
