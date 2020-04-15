@@ -10,10 +10,9 @@ use ingelby\toolbox\services\InguzzleHandler;
 
 class StockLogoHandler extends AbstractHandler
 {
-
     /**
      * @param string $symbol
-     * @return Url
+     * @return StockLogo
      * @throws IexcloudResponseException
      * @throws IexcloudRateLimitException
      */
@@ -21,21 +20,15 @@ class StockLogoHandler extends AbstractHandler
     {
         $response = $this->fetch(
             'logo',
-			$symbol
+            $symbol
         );
 
-
-        $response =  $response['url'];
-
-        return $response;
+        if (empty($response)) {
+            throw new IexcloudResponseException(HttpStatus::NOT_FOUND, 'No logo for symbol: ' . $symbol);
+        }
+        $model = new StockLogo();
+        $model->setAttributes($response);
+        return $model;
     }
 }
-
-
-
-
-
-
-
-
 

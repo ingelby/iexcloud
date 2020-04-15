@@ -4,7 +4,7 @@ namespace Ingelby\Iexcloud\Api;
 
 use Ingelby\Iexcloud\Exceptions\IexcloudRateLimitException;
 use Ingelby\Iexcloud\Exceptions\IexcloudResponseException;
-use Ingelby\Iexcloud\Models\News;
+use Ingelby\Iexcloud\Models\IexCloudNews;
 use ingelby\toolbox\constants\HttpStatus;
 use ingelby\toolbox\services\InguzzleHandler;
 use Carbon\Carbon;
@@ -22,20 +22,21 @@ class NewsHandler extends AbstractHandler
     {
         $response = $this->fetch(
             'news',
-			$symbol
+            $symbol
         );
 
-        $allNews = [];
+        $news = [];
 
-		foreach ($response as $article) :
-			$date = new \DateTime();
-			$date->setTimestamp($article["datetime"] / 1000);
-			$formattedTime = Carbon::parse($date)->diffForHumans();
-			$article['formattedTime'] = $formattedTime;
-			array_push($allNews, $article);
-		endforeach;
+        if (empty($response) || !is_array($response)) {
+            throw new IexcloudResponseException(HttpStatus::NOT_FOUND, 'No news for symbol: ' . $symbol);
+        }
+        foreach ($response as $article) {
+            $model = new IexCloudNews();
+            $model->setAttributes($article);
+            $news[] = $model;
+        }
 
-        return $allNews;
+        return $news;
     }
 }
 

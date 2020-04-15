@@ -13,7 +13,7 @@ class CompanyInfoHandler extends AbstractHandler
 
     /**
      * @param string $symbol
-     * @return Url
+     * @return CompanyInfo
      * @throws IexcloudResponseException
      * @throws IexcloudRateLimitException
      */
@@ -21,10 +21,16 @@ class CompanyInfoHandler extends AbstractHandler
     {
         $response = $this->fetch(
             'company',
-			$symbol
+            $symbol
         );
 
-        return $response;
+        if (empty($response)) {
+            throw new IexcloudResponseException(HttpStatus::NOT_FOUND, 'No company info for symbol: ' . $symbol);
+        }
+
+        $model = new CompanyInfo();
+        $model->setAttributes($response);
+        return $model;
     }
 }
 
