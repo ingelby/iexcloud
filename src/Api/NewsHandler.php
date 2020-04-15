@@ -24,7 +24,17 @@ class NewsHandler extends AbstractHandler
 			$symbol
         );
 
-        return $response;
+        $allNews = [];
+
+		foreach ($response as $article) :
+			$date = new \DateTime();
+			$date->setTimestamp($article["datetime"]);
+			$formattedTime = Carbon::parse($date)->diffForHumans();
+			$article['formattedTime'] = $formattedTime;
+			array_push($allNews, $article);
+		endforeach;
+
+        return $allNews;
     }
 }
 
