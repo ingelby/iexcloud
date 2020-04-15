@@ -4,11 +4,11 @@ namespace Ingelby\Iexcloud\Api;
 
 use Ingelby\Iexcloud\Exceptions\IexcloudRateLimitException;
 use Ingelby\Iexcloud\Exceptions\IexcloudResponseException;
-use Ingelby\Iexcloud\Models\CompanyInfo;
+use Ingelby\Iexcloud\Models\News;
 use ingelby\toolbox\constants\HttpStatus;
 use ingelby\toolbox\services\InguzzleHandler;
 
-class CompanyInfoHandler extends AbstractHandler
+class NewsHandler extends AbstractHandler
 {
 
     /**
@@ -17,10 +17,10 @@ class CompanyInfoHandler extends AbstractHandler
      * @throws IexcloudResponseException
      * @throws IexcloudRateLimitException
      */
-    public function getInfo(string $symbol)
+    public function getNews(string $symbol)
     {
         $response = $this->fetch(
-            'company',
+            'news',
 			$symbol
         );
 
