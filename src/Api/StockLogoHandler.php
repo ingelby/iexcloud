@@ -4,11 +4,11 @@ namespace Ingelby\Iexcloud\Api;
 
 use Ingelby\Iexcloud\Exceptions\IexcloudRateLimitException;
 use Ingelby\Iexcloud\Exceptions\IexcloudResponseException;
-use Ingelby\Iexcloud\Models\Quote;
+use Ingelby\Iexcloud\Models\StockLogo;
 use ingelby\toolbox\constants\HttpStatus;
 use ingelby\toolbox\services\InguzzleHandler;
 
-class LogoHandler extends AbstractHandler
+class StockLogoHandler extends AbstractHandler
 {
 
     /**
