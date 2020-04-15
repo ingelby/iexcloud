@@ -29,7 +29,7 @@ class AbstractHandler extends InguzzleHandler
     /**
      * @var string
      */
-    protected $apiKey;
+    protected $token;
 
     /**
      * @var int
@@ -42,7 +42,7 @@ class AbstractHandler extends InguzzleHandler
      * @param string      $apiKey
      * @param string|null $baseUrl
      */
-    public function __construct(string $apiKey, $baseUrl = null)
+    public function __construct(string $token, $baseUrl = null)
     {
         $this->baseUrl = $baseUrl;
         $this->token = $token;
