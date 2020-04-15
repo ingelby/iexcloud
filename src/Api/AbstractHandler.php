@@ -15,11 +15,12 @@ use yii\helpers\Json;
 
 class AbstractHandler extends InguzzleHandler
 {
-    protected const DEFAULT_URL = 'https://cloud.iexapis.com/stable/';
+    protected const DEFAULT_URL = 'https://cloud.iexapis.com/';
     protected const DEFAULT_ERROR_MESSAGE = 'Error Message';
     protected const DEFAULT_NOTE_MESSAGE = 'Note';
     protected const CACHE_KEY = 'IEXCLOUD_';
     protected const CACHE_TAG_DEPENDANCY = 'IEXCLOUD';
+	protected const API_VERSION = 'stable';
 
     /**
      * @var string
@@ -48,7 +49,7 @@ class AbstractHandler extends InguzzleHandler
         $this->token = $token;
 
         if (null === $this->baseUrl) {
-            $this->baseUrl = static::DEFAULT_URL;
+            $this->baseUrl = static::DEFAULT_URL.static::API_VERSION.'/';
         }
 
         parent::__construct($this->baseUrl);
