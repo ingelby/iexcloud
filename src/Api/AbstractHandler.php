@@ -16,8 +16,6 @@ use yii\helpers\Json;
 class AbstractHandler extends InguzzleHandler
 {
     protected const DEFAULT_URL = 'https://cloud.iexapis.com/';
-    protected const DEFAULT_ERROR_MESSAGE = 'Error Message';
-    protected const DEFAULT_NOTE_MESSAGE = 'Note';
     protected const CACHE_KEY = 'IEXCLOUD_';
     protected const CACHE_TAG_DEPENDANCY = 'IEXCLOUD';
 	protected const API_VERSION = 'stable';
@@ -74,27 +72,11 @@ class AbstractHandler extends InguzzleHandler
             $cacheKey,
             function () use ($finalHeaders,$symbol,$call) {
                 try {
-                    $response = $this->get("stock/$symbol/$call", $finalHeaders);
-
-                    if (array_key_exists(static::DEFAULT_ERROR_MESSAGE, $response)) {
-                        \Yii::error($response[static::DEFAULT_ERROR_MESSAGE]);
-                        throw new IexcloudResponseException(
-                            HttpStatus::BAD_REQUEST,
-                            $response[static::DEFAULT_ERROR_MESSAGE]
-                        );
-                    }
-
-                    if (array_key_exists(static::DEFAULT_NOTE_MESSAGE, $response)) {
-                        \Yii::error($response[static::DEFAULT_NOTE_MESSAGE]);
-                        throw new IexcloudRateLimitException(
-                            HttpStatus::BAD_REQUEST,
-                            'Rate limit reached'
-                        );
-                    }
-
-                    return $response;
-                } catch (InguzzleClientException | InguzzleInternalServerException | InguzzleServerException $e) {
-                	LoggingHelper::logError($e);
+                    return $this->get("stock/$symbol/$call", $finalHeaders);
+				} catch (InguzzleClientException $e) { //# https://iexcloud.io/docs/api/#error-codes
+					LoggingHelper::logError($e);
+                } catch (InguzzleInternalServerException | InguzzleServerException $e) {
+					throw new IexcloudResponseException($e->statusCode, 'Error contacting Alphavantage', 0, $e);
                 }
             },
             $this->cacheTimeout,
