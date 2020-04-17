@@ -76,7 +76,7 @@ class AbstractHandler extends InguzzleHandler
 				} catch (InguzzleClientException $e) { //# https://iexcloud.io/docs/api/#error-codes
 					LoggingHelper::logError($e);
                 } catch (InguzzleInternalServerException | InguzzleServerException $e) {
-					throw new IexcloudResponseException($e->statusCode, 'Error contacting Alphavantage', 0, $e);
+					throw new IexcloudResponseException($e->statusCode, 'Error contacting IEX Cloud', 0, $e);
                 }
             },
             $this->cacheTimeout,
