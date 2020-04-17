@@ -33,7 +33,7 @@ class AbstractHandler extends InguzzleHandler
     /**
      * @var int
      */
-    protected $cacheTimeout = 600;
+    protected $cacheTimeout = 1800; # cached for 30 minutes
 
     /**
      * AbstractHandler constructor.
