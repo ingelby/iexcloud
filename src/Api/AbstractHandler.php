@@ -82,7 +82,7 @@ class AbstractHandler extends InguzzleHandler
                         $e
                     );
                 } catch (InguzzleInternalServerException | InguzzleServerException $e) {
-                    throw new IexcloudResponseException($e->statusCode, 'Error contacting iexcloud', 0, $e);
+                    throw new IexcloudResponseException($e->statusCode, 'Error contacting IEX Cloud', 0, $e);
                 }
             },
             $this->cacheTimeout,
