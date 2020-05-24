@@ -18,7 +18,7 @@ class AbstractHandler extends InguzzleHandler
     protected const DEFAULT_URL = 'https://cloud.iexapis.com/';
     protected const CACHE_KEY = 'IEXCLOUD_';
     protected const CACHE_TAG_DEPENDANCY = 'IEXCLOUD';
-	protected const API_VERSION = 'stable';
+    protected const API_VERSION = 'stable';
 
     /**
      * @var string
@@ -47,22 +47,22 @@ class AbstractHandler extends InguzzleHandler
         $this->token = $token;
 
         if (null === $this->baseUrl) {
-            $this->baseUrl = static::DEFAULT_URL.static::API_VERSION.'/';
+            $this->baseUrl = static::DEFAULT_URL . static::API_VERSION . '/';
         }
 
         parent::__construct($this->baseUrl);
     }
 
     /**
-	 * @param string $call
+     * @param string $call
      * @param array  $headers
+     * @return array
      * @throws IexcloudResponseException
-     * @throws IexcloudRateLimitException
      */
     public function fetch(string $call, string $symbol, array $headers = [])
     {
         $standardHeaders = [
-            'token'   => $this->token
+            'token' => $this->token,
         ];
         $finalHeaders = array_merge($standardHeaders, $headers);
 
@@ -70,13 +70,19 @@ class AbstractHandler extends InguzzleHandler
 
         return \Yii::$app->cache->getOrSet(
             $cacheKey,
-            function () use ($finalHeaders,$symbol,$call) {
+            function () use ($finalHeaders, $symbol, $call) {
                 try {
                     return $this->get("stock/$symbol/$call", $finalHeaders);
-				} catch (InguzzleClientException $e) { //# https://iexcloud.io/docs/api/#error-codes
-					LoggingHelper::logError($e);
+                } catch (InguzzleClientException $e) {
+                    //https://iexcloud.io/docs/api/#error-codes
+                    throw new IexcloudResponseException(
+                        $e->statusCode,
+                        'Unable to get ' . $call . ' for symbol: ' . $symbol,
+                        0,
+                        $e
+                    );
                 } catch (InguzzleInternalServerException | InguzzleServerException $e) {
-					throw new IexcloudResponseException($e->statusCode, 'Error contacting Alphavantage', 0, $e);
+                    throw new IexcloudResponseException($e->statusCode, 'Error contacting iexcloud', 0, $e);
                 }
             },
             $this->cacheTimeout,
