@@ -10,6 +10,7 @@ use ingelby\toolbox\services\InguzzleHandler;
 
 class StockLogoHandler extends AbstractHandler
 {
+    protected const LOGO_CACHE_TIMEOUT = 60 * 60 * 24;
     /**
      * @param string $symbol
      * @return StockLogo
@@ -18,6 +19,8 @@ class StockLogoHandler extends AbstractHandler
      */
     public function getLogo(string $symbol)
     {
+        $this->cacheTimeout = static::LOGO_CACHE_TIMEOUT;
+        
         $response = $this->fetch(
             'logo',
             $symbol
